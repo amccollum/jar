@@ -12,5 +12,5 @@ execCmds = (cmds) ->
 
 task 'build', 'Build the library', ->
     execCmds [
-        'coffee --bare --output ./lib ./src/jar/*.coffee',
+        'coffee --bare --output ./lib ./src/*.coffee',
     ]

@@ -12,5 +12,6 @@
     "ender": "lib/ender.js",
     "directories": { "lib": "lib" },
     
+    "dependencies": { "es5-basic": "*" },
     "devDependencies": { "coffee-script": "*" }
 }
