@@ -26,7 +26,11 @@
                 if Array.isArray(m)
                     if m[1] == name
                         try
-                            return JSON.parse(decodeURIComponent(m[2]))
+                            decoded = decodeURIComponent(m[2])
+                            try
+                                return JSON.parse(decoded)
+                            catch e
+                                return decoded
                         catch e
                             break
                 
