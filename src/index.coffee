@@ -43,5 +43,5 @@ class jar.Jar
 
         
 # Load node-specific code on the server
-if @process and @process.versions and @process.versions.node
+if process?.pid
     require('./node')

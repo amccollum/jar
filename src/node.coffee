@@ -1,8 +1,8 @@
 crypto = require('crypto')
-jar = require('.')
+jar = require('./index')
 
 class jar.Jar extends jar.Jar
-    constructor: (@request, @response, @keys=[]) ->
+    constructor: (@request, @response, @keys) ->
     _getCookies: -> @request.headers['cookie']
     _setCookie: (cookie) ->
         headers = @response.getHeader('Set-Cookie') or []
@@ -27,6 +27,8 @@ class jar.Jar extends jar.Jar
         return super(name)
             
     set: (name, value, options={}) ->
+        @parse() if not @cookies
+        
         if options.secure and not @response.socket.encrypted
             throw new Error('Cannot send secure cookie over unencrypted socket.')
         
@@ -34,6 +36,9 @@ class jar.Jar extends jar.Jar
         @cookies[name] = encoded
 
         if 'signed' not of options or options.signed
+            if not @keys
+                throw new Error('Cannot sign cookies without setting @keys.')
+                
             @set("#{name}.sig", @sign(encoded))
         
         super
