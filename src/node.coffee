@@ -35,11 +35,11 @@ class jar.Jar extends jar.Jar
         encoded = encodeURIComponent(JSON.stringify(value))
         @cookies[name] = encoded
 
-        if 'signed' not of options or options.signed
+        if 'signed' of options and options.signed
             if not @keys
                 throw new Error('Cannot sign cookies without setting @keys.')
                 
-            @set("#{name}.sig", @sign(encoded))
+            super("#{name}.sig", @sign(encoded), options)
         
         super
         
