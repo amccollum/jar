@@ -1,5 +1,4 @@
 fs = require('fs')
-sys = require('sys')
 {spawn, exec} = require('child_process')
 
 execCmds = (cmds) ->

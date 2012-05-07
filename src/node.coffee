@@ -3,7 +3,7 @@ jar = require('./index')
 
 class jar.Jar extends jar.Jar
     constructor: (@request, @response, @keys) ->
-    _getCookies: -> @request.headers['cookie']
+    _getCookies: -> @request.headers['cookie'] or ''
     _setCookie: (cookie) ->
         headers = @response.getHeader('Set-Cookie') or []
         headers = [headers] if typeof headers is 'string'

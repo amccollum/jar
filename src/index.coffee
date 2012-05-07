@@ -3,14 +3,13 @@ jar = exports ? (@['jar'] = {})
 class jar.Jar
     parse: ->
         @cookies = {}
-    
-        data = @_getCookies()
-        return if not data
 
-        for cookie in data
+        for cookie in @_getCookies().split(/;\s/g)
             m = cookie.match(/([^=]+)=(.*)/);
             if Array.isArray(m)
                 @cookies[m[1]] = m[2]
+                
+        return
 
     get: (name) ->
         try
