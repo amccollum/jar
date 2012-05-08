@@ -11,13 +11,20 @@ class jar.Jar
                 
         return
 
+    encode: (value) -> encodeURIComponent(JSON.stringify(value))
+    decode: (value) -> JSON.parse(decodeURIComponent(value))
+
     get: (name) ->
+        @parse() if not @cookies
+        
         try
-            return JSON.parse(decodeURIComponent(@cookies[name]))
+            return @decode(@cookies[name])
         catch e
             return
     
     set: (name, value, options={}) ->
+        @parse() if not @cookies
+        
         if value == null
             value = ''
             options.expires = -(60 * 60 * 24)
@@ -35,10 +42,13 @@ class jar.Jar
         path = (if options.path then "; path=#{options.path}" else '')
         domain = (if options.domain then "; domain=#{options.domain}" else '')
         secure = (if options.secure then '; secure' else '')
-        encoded = encodeURIComponent(JSON.stringify(value))
-        cookie = [name, '=', encoded, expires, path, domain, secure].join('')
-    
+        
+        if 'raw' not of options or not options.raw
+            value = @encode(value)
+            
+        cookie = [name, '=', value, expires, path, domain, secure].join('')
         @_setCookie(cookie)
+        @cookies[name] = value
 
         
 # Load node-specific code on the server

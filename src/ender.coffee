@@ -4,9 +4,6 @@
     class jar.Jar extends jar.Jar
         _getCookies: -> document.cookie
         _setCookie: (cookie) -> document.cookie = cookie
-        get: (name) ->
-            @parse()
-            super
     
     j = jar.jar = new jar.Jar
         

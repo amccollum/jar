@@ -18,8 +18,6 @@ class jar.Jar extends jar.Jar
         return false
     
     get: (name) ->
-        @parse() if not @cookies
-        
         if "#{name}.sig" of @cookies
             if not @verify(@cookies[name], @cookies["#{name}.sig"])
                 return
@@ -27,19 +25,19 @@ class jar.Jar extends jar.Jar
         return super(name)
             
     set: (name, value, options={}) ->
-        @parse() if not @cookies
-        
         if options.secure and not @response.socket.encrypted
             throw new Error('Cannot send secure cookie over unencrypted socket.')
+                
+        super
         
-        encoded = encodeURIComponent(JSON.stringify(value))
-        @cookies[name] = encoded
-
         if 'signed' of options and options.signed
             if not @keys
                 throw new Error('Cannot sign cookies without setting @keys.')
+            
+            _options = { raw: true }
+            for key, value of options
+                if key not in ['raw', 'signed']
+                    _options[key] = value
                 
-            super("#{name}.sig", @sign(encoded), options)
-        
-        super
+            @set("#{name}.sig", @sign(@encode(value)), _options)
         
