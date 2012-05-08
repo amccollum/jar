@@ -37,9 +37,9 @@ class jar.Jar extends jar.Jar
                 throw new Error('Cannot sign cookies without setting @keys.')
             
             _options = { raw: true }
-            for key, value of options
-                if key not in ['raw', 'signed']
-                    _options[key] = value
+            for k, v of options
+                if k not in ['raw', 'signed']
+                    _options[k] = v
                 
             @set("#{name}.sig", @sign(@encode(value)), _options)
         
