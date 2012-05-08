@@ -18,11 +18,13 @@ class jar.Jar extends jar.Jar
         return false
     
     get: (name) ->
+        value = super
+        
         if "#{name}.sig" of @cookies
             if not @verify(@cookies[name], @cookies["#{name}.sig"])
                 return
                     
-        return super(name)
+        return value
             
     set: (name, value, options={}) ->
         if options.secure and not @response.socket.encrypted
