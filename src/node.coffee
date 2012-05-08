@@ -17,10 +17,10 @@ class jar.Jar extends jar.Jar
         
         return false
     
-    get: (name) ->
+    get: (name, options={}) ->
         value = super
         
-        if "#{name}.sig" of @cookies
+        if 'signed' of options and options.signed
             if not @verify(@cookies[name], @cookies["#{name}.sig"])
                 return
                     
