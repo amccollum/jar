@@ -7,7 +7,7 @@ class jar.Jar extends jar.Jar
     _setCookie: (cookie) ->
         headers = @response.getHeader('Set-Cookie') or []
         headers = [headers] if typeof headers is 'string'
-        headers.push(cookie)        
+        headers.push(cookie)
         @response.setHeader('Set-Cookie', headers)
         
     sign: (data, key=@keys[0]) -> crypto.createHmac('sha1', key).update(data).digest('hex')
@@ -20,8 +20,8 @@ class jar.Jar extends jar.Jar
     get: (name, options={}) ->
         value = super
         
-        if 'signed' of options and options.signed
-            if not @verify(@cookies[name], @cookies["#{name}.sig"])
+        if value? and 'signed' of options and options.signed
+            if "#{name}.sig" not in @cookies or not @verify(@cookies[name], @cookies["#{name}.sig"])
                 return
                     
         return value
