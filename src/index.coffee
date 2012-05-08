@@ -38,8 +38,10 @@ class jar.Jar
             if options.expires instanceof Date
                 options.expires = options.expires.toUTCString()
 
+        options.path or= '/'
+        
+        path = "; path=#{options.path}"
         expires = (if options.expires then "; expires=#{options.expires}" else '')
-        path = (if options.path then "; path=#{options.path}" else '')
         domain = (if options.domain then "; domain=#{options.domain}" else '')
         secure = (if options.secure then '; secure' else '')
         
