@@ -21,7 +21,7 @@ class jar.Jar extends jar.Jar
         value = super
         
         if value? and 'signed' of options and options.signed
-            if "#{name}.sig" not in @cookies or not @verify(@cookies[name], @cookies["#{name}.sig"])
+            if "#{name}.sig" not of @cookies or not @verify(@cookies[name], @cookies["#{name}.sig"])
                 return
                     
         return value
