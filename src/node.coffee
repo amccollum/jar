@@ -3,12 +3,22 @@ jar = require('./index')
 
 class jar.Jar extends jar.Jar
     constructor: (@request, @response, @keys) ->
+        @changed = {}
+          
     _getCookies: -> @request.headers['cookie'] or ''
     _setCookie: (cookie) ->
+        @changed[cookie.name] = cookie
+        return
+        
+    setHeaders: ->
         headers = @response.getHeader('Set-Cookie') or []
         headers = [headers] if typeof headers is 'string'
-        headers.push(cookie)
+        
+        for name, cookie of @changed
+            headers.push(cookie.toString())
+            
         @response.setHeader('Set-Cookie', headers)
+        
         
     sign: (data, key=@keys[0]) -> crypto.createHmac('sha1', key).update(data).digest('hex')
     verify: (data, hash) ->

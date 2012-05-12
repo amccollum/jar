@@ -3,7 +3,9 @@
     
     class jar.Jar extends jar.Jar
         _getCookies: -> document.cookie
-        _setCookie: (cookie) -> document.cookie = cookie
+        _setCookie: (cookie) ->
+            document.cookie = cookie.toString()
+            return
     
     j = jar.jar = new jar.Jar
         
