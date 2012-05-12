@@ -28,6 +28,7 @@ class jar.Jar extends jar.Jar
         return false
     
     get: (name, options={}) ->
+        @parse() if not @cookies
         value = super
         
         if value? and 'signed' of options and options.signed
@@ -37,6 +38,8 @@ class jar.Jar extends jar.Jar
         return value
             
     set: (name, value, options={}) ->
+        @parse() if not @cookies
+                
         if options.secure and not @response.socket.encrypted
             throw new Error('Cannot send secure cookie over unencrypted socket.')
                 

@@ -41,16 +41,12 @@ class jar.Jar
     decode: (value) -> JSON.parse(decodeURIComponent(value))
 
     get: (name) ->
-        @parse() if not @cookies
-        
         try
             return @decode(@cookies[name])
         catch e
             return
     
     set: (name, value, options={}) ->
-        @parse() if not @cookies
-                
         if 'raw' not of options or not options.raw
             value = @encode(value)
             

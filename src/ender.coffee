@@ -6,6 +6,14 @@
         _setCookie: (cookie) ->
             document.cookie = cookie.toString()
             return
+            
+        get: ->
+            @parse()
+            super
+            
+        set: ->
+            @parse()
+            super
     
     j = jar.jar = new jar.Jar
         
