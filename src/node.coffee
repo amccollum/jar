@@ -55,4 +55,6 @@ class jar.Jar extends jar.Jar
                     _options[k] = v
                 
             @set("#{name}.sig", @sign(@encode(value)), _options)
+            
+        return
         

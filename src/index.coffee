@@ -53,7 +53,8 @@ class jar.Jar
         cookie = new jar.Cookie(name, value, options)
         @_setCookie(cookie)
         @cookies[name] = value
-
+        return
+        
         
 # Load node-specific code on the server
 if process?.pid
