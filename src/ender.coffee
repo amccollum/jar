@@ -15,10 +15,9 @@
             @parse()
             super
     
-    j = jar.jar = new jar.Jar
-        
     $.ender
+        jar: new jar.Jar
         cookie: (name, value, options) ->
-            if value? then j.set(name, value, options) else j.get(name)
+            if value? then $.jar.set(name, value, options) else $.jar.get(name)
 
 )(ender)
