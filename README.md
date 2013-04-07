@@ -8,7 +8,7 @@ Simple cookie handling:
 
 It's also easy to set cookie options:
 
-    jar.cookie('topSecret', 'this cookie will self-destruct in 5 days', { expires: 5 });
+    jar.cookie('topSecret', 'this cookie will self-destruct in 5 days', { expires: 5*60*60*24 });
     
 Usage with Ender
 ----------------
